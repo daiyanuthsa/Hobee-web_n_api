@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +15,7 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function canAccessFilament(): bool{
+    public function canAccessPanel(Panel $panel): bool{
         return $this->isactive;
     }
 
@@ -28,6 +29,19 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'password',
         'isactive',
+        'empid',
+        'uniqueid', // Assuming you want this to be mass assignable
+        'gender',
+        'idcard',
+        'phone',
+        'email', // Assuming there's an 'email' column (not included in the schema)
+        'POB',
+        'DOB',
+        'address',
+        'joindate',
+        'companyid',
+        'photo', // Assuming photo storage is handled outside the model
+        'isadmin',
     ];
 
     /**
@@ -47,5 +61,8 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'DOB' => 'date',
+        'joindate' => 'date',
+        'isadmin' => 'boolean',
     ];
 }
