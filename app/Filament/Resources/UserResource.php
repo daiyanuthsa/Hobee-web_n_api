@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -30,7 +31,9 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('idcard')
+                Forms\Components\TextInput::make('idcard')->rules('numeric')
+                    ->required(),
+                Forms\Components\TextInput::make('empid')->rules('numeric')
                     ->required(),
                 Forms\Components\TextInput::make('phone')->required(),
                 Forms\Components\Select::make('gender')
@@ -40,7 +43,7 @@ class UserResource extends Resource
                 Forms\Components\DatePicker::make('DOB')->required()->label('Date of Birth'),
                 Forms\Components\TextInput::make('address') // Consider a text area if rich text isn't needed
                     ->required(),
-                Forms\Components\DateTimePicker::make('updated_at'),
+
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
